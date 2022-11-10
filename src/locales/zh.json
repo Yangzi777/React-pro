@@ -1,0 +1,13 @@
+{
+	"hello": "您好",
+	"world": "世界",
+	"lang": "切换中文",
+	"columnsTitle": {
+		"id": "id",
+		"title": "title",
+		"amount": "amount",
+		"author": "author",
+		"currentAt": "currentAt",
+		"operation": "operation"
+	}
+}

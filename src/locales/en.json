@@ -1,0 +1,13 @@
+{
+	"hello": "您好",
+	"world": "世界",
+	"lang": "切换英文",
+	"columnsTitle": {
+		"id": "id",
+		"title": "标题",
+		"amount": "阅读量",
+		"author": "作者",
+		"currentAt": "发布时间",
+		"operation": "操作"
+	}
+}
