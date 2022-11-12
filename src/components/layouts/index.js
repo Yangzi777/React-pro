@@ -115,7 +115,7 @@ export default function Layouts (props) {
               style={{ height: '100%' }}
               onClick={onClick}
               selectedKeys={[location.pathname]}
-              openKeys={['dashboard']}
+              defaultopenKeys={['dashboard']}
               mode="inline"
               items={items}
             />
