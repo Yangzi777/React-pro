@@ -4,7 +4,7 @@ import { getArticleList, deleteArticleById } from '../../api';
 import { useCallbackState } from '../../utils'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment';
-import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Navigate, useNavigate } from 'react-router-dom';
 export default function ArticleList () {
   const navigate = useNavigate()
@@ -96,8 +96,8 @@ export default function ArticleList () {
         title: '操作',
         render: text => {
           return <ButtonGroup>
-            <Button onClick={() => toEdit(text)} type='primary' icon={<FormOutlined />}></Button>
-            <Button type='primary' icon={<DeleteOutlined />} onClick={() => deleteActicle(text)} danger></Button>
+            <Button onClick={() => toEdit(text)} type='primary' icon={<EditOutlined />}></Button>
+            <Button type='primary' icon={<DeleteOutlined />} onClick={() => deleteActicle(text)} danger ></Button>
           </ButtonGroup>
         }
 

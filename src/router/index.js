@@ -30,21 +30,25 @@ export default function IndexRouter () {
         {
           path: '/admin/settings',
           element: lazyload('settings')
+        },
+        {
+          path: '/admin/notifications',
+          element: lazyload('notifications')
         }
       ]
     },
-    // {
-    //   path: '/login',
-    //   element: lazyload('login')
-    // },
-    // {
-    //   path: '/notfound',
-    //   element: lazyload('notfound')
-    // },
-    // {
-    //   path: '*',
-    //   element: <Navigate to='/notfound'></Navigate>
-    // }
+    {
+      path: '/login',
+      element: lazyload('login')
+    },
+    {
+      path: '/notfound',
+      element: lazyload('notfound')
+    },
+    {
+      path: '*',
+      element: <Navigate to='/notfound'></Navigate>
+    }
   ])
 }
 

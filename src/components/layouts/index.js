@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import { AppstoreOutlined, MailOutlined, SettingOutlined, IeOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import { Layout, Menu, Switch } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { AppstoreOutlined, MailOutlined, SettingOutlined, IeOutlined, MenuUnfoldOutlined, SmileOutlined, MenuFoldOutlined, DownOutlined } from '@ant-design/icons';
+import { Layout, Menu, Switch, Space, Dropdown, Badge } from 'antd';
 import LayoutsStyle from './layouts.module.less'
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getNotificationsData } from '../../store/actions/notifications'
 const { Header, Content, Footer, Sider } = Layout;
 function getItem (label, key, icon, children, type) {
   return {
@@ -24,11 +25,19 @@ const items = [
 ];
 
 
+
 export default function Layouts (props) {
+  const notificationsLength = useSelector(state => state.notifications.list.filter(item => item.hasRead === false).length)
   const navigate = useNavigate()
   const location = useLocation()
   const [theme, setTheme] = useState('light')
   const [collapsed, setCollapsed] = useState(false)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getNotificationsData())
+  }, [])
+
+
   //  点击左侧导航的时候触发
   const onClick = ({ key }) => {
     //  通过编程式导航跳转
@@ -43,11 +52,45 @@ export default function Layouts (props) {
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+  //  下拉菜单的menu
+  const menu = () => (
+    <Menu
+      onClick={onClick}
+      items={[
+        {
+          key: '/admin/notifications',
+          label: <Badge dot={notificationsLength != 0}>通知中心</Badge>
+        },
+        {
+          key: 'admin/article',
+          label: '文章列表',
+          icon: <SmileOutlined />,
+        },
+        {
+          key: '/admin/settings',
+          label: '设置',
+        },
+        {
+          key: '/logout',
+          danger: true,
+          label: '退出',
+        },
+      ]}
+    />
+  );
   return (
     <Layout>
-      <Header className={LayoutsStyle.header}>
-        <div className="logo">
+      <Header className='header'>
+        <div className={LayoutsStyle.header}>
           <h2><IeOutlined style={{ marginRight: '5px', color: 'rgb(29,187,238)', fontSize: '30px', }} />文章后台管理系统</h2>
+          <Dropdown overlay={menu} className={LayoutsStyle.dropdown}>
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                <Badge size='small' count={notificationsLength} offset={[8, -8]}>欢迎您:张三</Badge>
+                <DownOutlined />
+              </Space>
+            </a>
+          </Dropdown>
         </div>
       </Header>
       <Content
@@ -71,8 +114,8 @@ export default function Layouts (props) {
               theme={theme}
               style={{ height: '100%' }}
               onClick={onClick}
-              defaultSelectedKeys={[location.pathname]}
-              defaultOpenKeys={['dashboard']}
+              selectedKeys={[location.pathname]}
+              openKeys={['dashboard']}
               mode="inline"
               items={items}
             />
